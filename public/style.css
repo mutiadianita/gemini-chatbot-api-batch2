@@ -1,0 +1,223 @@
+:root {
+  /* Light Theme Variables */
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --container-bg: #f9f9f9;
+  --input-bg: #ffffff;
+  --border-color: #e0e0e0;
+
+  /* Bubble Colors */
+  --user-bubble-bg: #007AFF; /* Modern Blue */
+  --user-bubble-text: #ffffff;
+  --model-bubble-bg: #34C759; /* Modern Green */
+  --model-bubble-text: #ffffff;
+  
+  /* Layout */
+  --max-width: 800px;
+  --header-height: 60px;
+  --input-height: 70px;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme Variables */
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --container-bg: #1e1e1e;
+  --input-bg: #2c2c2c;
+  --border-color: #333333;
+
+  /* Bubble Colors - slightly muted for dark mode */
+  --user-bubble-bg: #0056b3; 
+  --model-bubble-bg: #1e7b39; 
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.app-container {
+  width: 100%;
+  max-width: var(--max-width);
+  background: var(--container-bg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+/* Header */
+header {
+  height: var(--header-height);
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--container-bg); /* Ensure header matches container */
+}
+
+h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.theme-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.theme-btn:hover {
+  background: rgba(0,0,0,0.1);
+}
+[data-theme="dark"] .theme-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Chat Area */
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  scroll-behavior: smooth;
+}
+
+.message {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  position: relative;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* User Message - Blue, Right */
+.user-message {
+  align-self: flex-end;
+  background-color: var(--user-bubble-bg);
+  color: var(--user-bubble-text);
+  border-bottom-right-radius: 4px; /* Distinctive shape */
+}
+
+/* Model Message - Green, Left */
+.model-message {
+  align-self: flex-start;
+  background-color: var(--model-bubble-bg);
+  color: var(--model-bubble-text);
+  border-bottom-left-radius: 4px; /* Distinctive shape */
+}
+
+/* Markdown Styles inside Messages */
+.message strong {
+  font-weight: 700;
+}
+
+.message em {
+  font-style: italic;
+}
+
+.message ul, .message ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.message li {
+  margin-bottom: 4px;
+}
+
+.message p {
+  margin: 0 0 8px 0;
+}
+.message p:last-child {
+  margin-bottom: 0;
+}
+
+/* Input Area */
+#chat-form {
+  height: var(--input-height);
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--container-bg);
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 25px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--user-bubble-bg);
+}
+
+button[type="submit"] {
+  background-color: var(--user-bubble-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Scrollbar Styling */
+.chat-box::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-box::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+[data-theme="dark"] .chat-box::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.2);
+}
